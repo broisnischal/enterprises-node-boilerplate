@@ -10,7 +10,8 @@
     "prettier": "prettier --config .prettierrc \"./src/**/*.+(js|json|ts)\" --write --ignore-unknown",
     "prettier:check": "prettier --config .prettierrc \"./src/**/*.+(js|json|ts)\" --check --ignore-unknown",
     "lint": "eslint \"./src/**/*.ts\"",
-    "test": "mocha -r tsconfig-paths/register -r ts-node/register  \"./src/test/**/*.ts\" --exit"
+    "test": "mocha -r tsconfig-paths/register -r ts-node/register  \"./src/test/**/*.ts\" --exit",
+    "post-commit-action": "echo 'Post-commit actions'"
   },
   "keywords": [],
   "author": "neeswebservices",
@@ -28,8 +29,15 @@
   "lint-staged": {
     "./src/**/*.+(ts|js)": [
       "npm run lint",
-      "npm run prettier:check"
+      "npm run prettier:check",
+      "npm run test"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-commit": "npm run post-commit-action"
+    }
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
