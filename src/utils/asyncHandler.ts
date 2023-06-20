@@ -10,17 +10,25 @@ interface CustomRequest extends Request {
 const asyncHandler = (controller: ControllerFunction, ...rest: any[]) => {
   // eslint-disable-next-line consistent-return
   return async (req: CustomRequest, res: Response, next: NextFunction): Promise<any> => {
-    const session = await mongoose.startSession();
+    let session: mongoose.ClientSession | null = null;
 
     try {
-      await session.withTransaction(async () => {
-        req.args = rest;
-        await controller(req, res, next, session);
-      });
+      session = await mongoose.startSession();
+      session.startTransaction();
+
+      req.args = rest;
+      await controller(req, res, next, session);
+
+      await session.commitTransaction();
     } catch (error) {
+      if (session) {
+        await session.abortTransaction();
+      }
       return next(error);
     } finally {
-      session.endSession();
+      if (session) {
+        session.endSession();
+      }
     }
   };
 };
