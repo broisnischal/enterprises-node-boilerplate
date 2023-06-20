@@ -1,9 +1,9 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
-
+// eslint-disable-next-line object-curly-newline
+import { Document, ObjectId, Schema, Types, Model, model } from 'mongoose';
 import ModelEnum from '~/enum/v1/model.enum';
 
 export interface IToken extends Document {
-  user: Types.ObjectId;
+  user: Types.ObjectId | ObjectId;
   type: string;
   userModel: string;
 }
@@ -28,8 +28,6 @@ const tokenSchema = new Schema<IToken>({
   },
 });
 
-type tokenModelType = mongoose.Model<IToken>;
-
-const tokenModel: tokenModelType = mongoose.model<IToken>('Token', tokenSchema);
+const tokenModel: Model<IToken> = model<IToken>('Token', tokenSchema);
 
 export default tokenModel;

@@ -43,6 +43,7 @@ module.exports = {
       'off' | 'warn' | 'error',
       { target: 'single' | 'any' }, // default is "single"
     ],
+    'object-curly-newline': 'off',
   },
 };
 
