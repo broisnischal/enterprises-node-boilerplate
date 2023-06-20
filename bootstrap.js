@@ -1,11 +1,12 @@
-import { join } from 'path'
-import { register } from 'tsconfig-paths'
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const tsConfigPaths = require('tsconfig-paths');
 
-import { compilerOptions } from './tsconfig.json'
+const tsConfig = require('./tsconfig.json');
 
-const baseUrl = join(__dirname, 'build') // This will get the absolute path for the build folder
+const baseUrl = path.join(__dirname, 'build'); // This will get the absolute path for the build folder
 
-register({
+tsConfigPaths.register({
   baseUrl, // We're setting the base url
-  paths: compilerOptions.paths, // Here we're calling for the paths in our tsconfig.json
-})
+  paths: tsConfig.compilerOptions.paths, // Here we're calling for the paths in our tsconfig.json
+});

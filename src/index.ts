@@ -1,4 +1,4 @@
-import app from '~/app';
+import app from 'app';
 import http from 'node:http';
 import redisClient from './config/redis.config';
 import logger from './log/logger';

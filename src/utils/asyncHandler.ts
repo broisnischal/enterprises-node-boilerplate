@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
-import { ControllerFunction } from '~/types/index.types';
+import { ControllerFunction } from 'types/index.types';
 
 interface CustomRequest extends Request {
   args: any[];
